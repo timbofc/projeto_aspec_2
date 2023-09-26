@@ -12,4 +12,3 @@ CREATE TABLE categorias (
     name VARCHAR(50) NOT NULL
 );
 
-INSERT INTO categorias(id, name) VALUES(1, "Facebook");
