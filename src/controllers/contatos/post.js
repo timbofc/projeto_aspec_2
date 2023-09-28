@@ -9,13 +9,14 @@ async function post(req, res) {
 	if (!name || !email || !phone) {
 		return res
 			.status(400)
-			.json({ error: 'Name, email e telefone são obrigatórios.' })
+			.json({ error: 'Name, email e telefone são obrigatórios.' })			
 	}
+
 	// Validação do campo "email"
-	if (email.length < 5 || email.length > 100) {
+	if (email.length < 5 || email.length > 50) {
 		return res
 			.status(400)
-			.json({ error: 'O campo "email" deve ter entre 5 e 100 caracteres.' })
+			.json({ error: 'O campo "email" deve ter entre 5 e 50 caracteres.' })
 	}
 
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Verifica o formato do email
@@ -38,11 +39,13 @@ async function post(req, res) {
 		.replace(/(-\d{4})\d+?$/, '$1')
 
 	try {
-		const [contatoCriado] = await createContatos(obj)
+		const contatoCriado = await createContatos(name, email, formattedPhone, category_id)
+		console.log('Contato criado com sucesso.')
 		console.log(contatoCriado)
 		return res.status(201).json(contatoCriado)
 	} catch (error) {
-		return res
+		console.log(error)
+		return res			
 			.status(500)
 			.json({ error: 'Ocorreu um erro ao criar o contato.' })
 	}

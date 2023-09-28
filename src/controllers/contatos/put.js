@@ -8,7 +8,13 @@ async function put(req, res) {
 		if (!name || !email || !phone) {
 			return res.status(400).json({ error: 'Nome, email e telefone são obrigatórios.' })
 		}
-		const result = await updatecontatos({ id, name, email, phone, category_id })
+
+		const result = await updatecontatos({name, email, phone, category_id, id})
+		if (!result) {
+			return res.status(400).json({error: 'Contato não identificado.'})
+		}
+		console.log('Contato editado com sucesso.')
+		console.log(result)
 		res.status(200).json(result)
 	} catch (error) {
 		console.error('Erro ao atualizar registro:', error)

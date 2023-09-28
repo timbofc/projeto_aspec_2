@@ -6,6 +6,10 @@ async function showContatos(filters) {
 
 	let sql = 'SELECT * FROM contatos'
 
+	if (!name) {
+		sql += ' ORDER BY id'
+	}
+
 	if (name) {
 		sql += ' WHERE name LIKE $1'
 	}
@@ -16,10 +20,10 @@ async function showContatos(filters) {
 	return contatos
 }
 
-async function createContatos(name) {
+async function createContatos(name, email, phone, category_id) {
 	const obj = {
-		text: 'INSERT INTO contatos(name) VALUES($1) RETURNING *',
-		values: [name],
+		text: 'INSERT INTO contatos (name, email, phone, category_id) VALUES ($1, $2, $3, $4) RETURNING *',
+		values: [name, email, phone, category_id]
 	}
 
 	const [contatoCriado] = await query(obj)

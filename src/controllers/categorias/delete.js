@@ -16,8 +16,9 @@ async function remove(req, res) {
 		if (!result) {
 			res.status(404).json({ error: 'Categoria não existente' })
 		}
-		res.status(200).json(result)
+		console.log('Categoria excluída com sucesso.')
 		console.log(result)
+		res.status(200).json(result)		
 	} catch (error) {
 		console.error('Erro ao excluir registro:', error)
 		res.status(500).json({ error: 'Erro ao excluir registro' })

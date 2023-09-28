@@ -7,13 +7,15 @@ async function post(req, res) {
 
 	const { name } = categorias
 
-	if (name.length < 2 || !name) {
+	if (name < 2 || !name) {		
 		return res.status(400).json({
 			error: 'Nome deve ser obrigatorio, e deve ter no minimo 3 caracteres',
 		})
 	}
+
 	try {
 		const categoriaCriada = await createCategorias(name)
+		console.log('Categoria criada com sucesso.')
 		console.log(categoriaCriada)
 		return res.status(201).json(categoriaCriada)
 	} catch (error) {
